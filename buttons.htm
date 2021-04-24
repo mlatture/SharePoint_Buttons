@@ -1,0 +1,25 @@
+<script type="text/javascript" src="/SiteAssets/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/SiteAssets/jquery.SPServices-0.5.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/SiteAssets/std_Buttons.css"/>
+
+<script language="javascript" type="text/javascript">
+
+$(document).ready(function() {
+  $().SPServices({
+    operation: "GetListItems",
+    async: false,
+    listName: "Links",
+    CAMLViewFields: "<ViewFields><FieldRef Name='URL' /></ViewFields>",
+    completefunc: function (xData, Status) {
+      $(xData.responseXML).find("[nodeName='z:row']").each(function() {
+ var urlstr =  $(this).attr("ows_URL").split(','); 
+        var liHtml = "<a class='ms-ContentAccent1-bgColor btn_1line_xSma' href='" + urlstr[0] + "'>" + urlstr[1] + "</a><br/>" ;
+        $("#links").append(liHtml);
+ 
+      });
+    }
+  });
+});
+</script>
+<div id="links" >
+</div>
